@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlobalJobFinders - Búsqueda Internacional de Empleo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo i {
+            color: var(--secondary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+        }
+        
+        nav a:hover {
+            color: var(--secondary);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.8)), url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-secondary {
+            background-color: var(--success);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #219653;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: var(--light);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Forms */
+        .form-container {
+            max-width: 800px;
+            margin: 3rem auto;
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-container h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        .form-group {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+        
+        .legal-check {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin-top: 2rem;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .legal-check h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .checkbox-group {
+            margin-bottom: 1rem;
+        }
+        
+        .checkbox-group input {
+            margin-right: 10px;
+        }
+        
+        .required {
+            color: var(--accent);
+        }
+        
+        /* Dashboard */
+        .dashboard {
+            padding: 3rem 0;
+            min-height: 70vh;
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 2rem;
+        }
+        
+        .tab {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            border-bottom-color: var(--secondary);
+            color: var(--secondary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .candidates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .candidate-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .candidate-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .candidate-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1.2rem;
+        }
+        
+        .candidate-body {
+            padding: 1.2rem;
+        }
+        
+        .candidate-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-approved {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-rejected {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-col a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 600px;
+            margin: 3rem auto;
+            border-radius: 8px;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            
+            .form-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-globe-americas"></i>
+                <span>GlobalJobFinders</span>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#home">Inicio</a></li>
+                    <li><a href="#about">Cómo funciona</a></li>
+                    <li><a href="#candidates">Candidatos</a></li>
+                    <li><a href="#employers">Empresas</a></li>
+                    <li><a href="#" id="loginBtn">Iniciar Sesión</a></li>
+                    <li><a href="#" class="btn" id="registerBtn">Registrarse</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Conectamos talento global con oportunidades internacionales</h1>
+            <p>Encuentra los mejores candidatos verificados para tu empresa o consigue el empleo de tus sueños en cualquier parte del mundo. Nuestro riguroso proceso de verificación asegura que solo trabajamos con profesionales sin problemas legales.</p>
+            <div>
+                <a href="#candidateForm" class="btn">Buscar Empleo</a>
+                <a href="#employerForm" class="btn btn-secondary">Buscar Candidatos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestro Proceso de Verificación</h2>
+                <p>Garantizamos la integridad de todos nuestros candidatos</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3>Verificación de Identidad</h3>
+                    <p>Confirmamos la identidad de cada candidato con documentos oficiales y tecnología biométrica.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <h3>Antecedentes Legales</h3>
+                    <p>Revisamos exhaustivamente los antecedentes penales y legales en todos los países donde haya residido.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-passport"></i>
+                    </div>
+                    <h3>Verificación Internacional</h3>
+                    <p>Colaboramos con agencias internacionales para verificar historiales en múltiples países.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Candidate Registration Form -->
+    <section id="candidateForm">
+        <div class="container">
+            <div class="form-container">
+                <h2>Registro de Candidatos</h2>
+                <form id="candidateRegistrationForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Nombre Completo <span class="required">*</span></label>
+                            <input type="text" id="fullName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Correo Electrónico <span class="required">*</span></label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="country">País de Origen <span class="required">*</span></label>
+                            <select id="country" class="form-control" required>
+                                <option value="">Seleccione un país</option>
+                                <option value="mexico">México</option>
+                                <option value="usa">Estados Unidos</option>
+                                <option value="canada">Canadá</option>
+                                <option value="spain">España</option>
+                                <option value="germany">Alemania</option>
+                                <option value="uk">Reino Unido</option>
+                                <option value="colombia">Colombia</option>
+                                <option value="argentina">Argentina</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="profession">Profesión <span class="required">*</span></label>
+                            <input type="text" id="profession" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="experience">Años de Experiencia <span class="required">*</span></label>
+                            <input type="number" id="experience" class="form-control" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="languages">Idiomas que Domina <span class="required">*</span></label>
+                            <input type="text" id="languages" class="form-control" placeholder="Ej: Español, Inglés, Francés" required>
+                        </div>
+                    </div>
+                    
+                    <div class="legal-check">
+                        <h3>Declaración Legal</h3>
+                        <p>Para garantizar la integridad de nuestro proceso, necesitamos que responda las siguientes preguntas:</p>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="legalRecord" required>
+                            <label for="legalRecord">Declaro que NO tengo antecedentes penales en ningún país donde he residido. <span class="required">*</span></label>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="pendingCases" required>
+                            <label for="pendingCases">Declaro que NO tengo procesos legales pendientes o casos judiciales abiertos. <span class="required">*</span></label>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="legalRestrictions" required>
+                            <label for="legalRestrictions">Declaro que NO tengo restricciones legales para trabajar en otros países. <span class="required">*</span></label>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="consentVerification" required>
+                            <label for="consentVerification">Autorizo a GlobalJobFinders a verificar mis antecedentes legales a través de medios oficiales. <span class="required">*</span></label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="resume">Subir CV (PDF o DOC) <span class="required">*</span></label>
+                            <input type="file" id="resume" class="form-control" accept=".pdf,.doc,.docx" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="idDocument">Documento de Identidad (PDF o imagen) <span class="required">*</span></label>
+                            <input type="file" id="idDocument" class="form-control" accept=".pdf,.jpg,.jpeg,.png" required>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button type="submit" class="btn">Enviar Solicitud de Registro</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard (Admin Panel) -->
+    <section class="dashboard" id="dashboard" style="display: none;">
+        <div class="container">
+            <div class="dashboard-header">
+                <h2>Panel de Administración - GlobalJobFinders</h2>
+                <div>
+                    <span id="adminName"></span>
+                    <button class="btn" id="logoutBtn">Cerrar Sesión</button>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalCandidates">0</div>
+                    <div>Candidatos Totales</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="approvedCandidates">0</div>
+                    <div>Candidatos Aprobados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="pendingCandidates">0</div>
+                    <div>Candidatos Pendientes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="rejectedCandidates">0</div>
+                    <div>Candidatos Rechazados</div>
+                </div>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="candidates">Candidatos</div>
+                <div class="tab" data-tab="jobs">Ofertas de Trabajo</div>
+                <div class="tab" data-tab="countries">Países Activos</div>
+            </div>
+            
+            <div class="tab-content active" id="candidates-tab">
+                <h3 style="margin-bottom: 1.5rem;">Lista de Candidatos</h3>
+                <div class="candidates-grid" id="candidatesList">
+                    <!-- Los candidatos se cargarán aquí dinámicamente -->
+                </div>
+            </div>
+            
+            <div class="tab-content" id="jobs-tab">
+                <h3>Ofertas de Trabajo Activas</h3>
+                <p>Esta funcionalidad se implementará en la versión completa del sistema.</p>
+            </div>
+            
+            <div class="tab-content" id="countries-tab">
+                <h3>Países con Mayor Demanda</h3>
+                <p>Esta funcionalidad se implementará en la versión completa del sistema.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>GlobalJobFinders</h3>
+                    <p>Conectamos talento global con oportunidades laborales internacionales, garantizando procesos seguros y verificados.</p>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="#home">Inicio</a></li>
+                        <li><a href="#about">Cómo funciona</a></li>
+                        <li><a href="#candidateForm">Registro de Candidatos</a></li>
+                        <li><a href="#employerForm">Registro de Empresas</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@globaljobfinders.com</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Oficina Global: Nueva York, USA</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Términos y Condiciones</a></li>
+                        <li><a href="#">Política de Privacidad</a></li>
+                        <li><a href="#">Proceso de Verificación</a></li>
+                        <li><a href="#">Aviso Legal</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 GlobalJobFinders. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeLoginModal">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Correo Electrónico</label>
+                    <input type="email" id="loginEmail" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Contraseña</label>
+                    <input type="password" id="loginPassword" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userType">Tipo de Usuario</label>
+                    <select id="userType" class="form-control" required>
+                        <option value="candidate">Candidato</option>
+                        <option value="employer">Empresa</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button type="submit" class="btn">Iniciar Sesión</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Datos iniciales de ejemplo
+        let candidates = [
+            {
+                id: 1,
+                name: "Ana García López",
+                email: "ana.garcia@email.com",
+                country: "México",
+                profession: "Ingeniera de Software",
+                experience: 8,
+                status: "approved",
+                languages: "Español, Inglés",
+                legalVerified: true,
+                registrationDate: "2023-10-15"
+            },
+            {
+                id: 2,
+                name: "John Smith",
+                email: "john.smith@email.com",
+                country: "Estados Unidos",
+                profession: "Project Manager",
+                experience: 12,
+                status: "pending",
+                languages: "Inglés, Español",
+                legalVerified: false,
+                registrationDate: "2023-11-02"
+            },
+            {
+                id: 3,
+                name: "Maria Rossi",
+                email: "maria.rossi@email.com",
+                country: "Italia",
+                profession: "Diseñadora UX/UI",
+                experience: 5,
+                status: "rejected",
+                languages: "Italiano, Inglés, Francés",
+                legalVerified: false,
+                registrationDate: "2023-10-28"
+            },
+            {
+                id: 4,
+                name: "Carlos Fernández",
+                email: "carlos.fernandez@email.com",
+                country: "España",
+                profession: "Analista de Datos",
+                experience: 6,
+                status: "approved",
+                languages: "Español, Inglés, Alemán",
+                legalVerified: true,
+                registrationDate: "2023-11-10"
+            }
+        ];
+
+        // Estado de la aplicación
+        let currentUser = null;
+        let isAdminLoggedIn = false;
+
+        // Elementos del DOM
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const loginModal = document.getElementById('loginModal');
+        const closeLoginModal = document.getElementById('closeLoginModal');
+        const loginForm = document.getElementById('loginForm');
+        const candidateRegistrationForm = document.getElementById('candidateRegistrationForm');
+        const dashboard = document.getElementById('dashboard');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const adminNameSpan = document.getElementById('adminName');
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar la aplicación
+            updateCandidateStats();
+            renderCandidates();
+            
+            // Mostrar/ocultar menú móvil
+            mobileMenuBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('show');
+            });
+            
+            // Mostrar modal de login
+            loginBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.style.display = 'block';
+            });
+            
+            // Cerrar modal de login
+            closeLoginModal.addEventListener('click', function() {
+                loginModal.style.display = 'none';
+            });
+            
+            // Cerrar modal al hacer clic fuera
+            window.addEventListener('click', function(e) {
+                if (e.target === loginModal) {
+                    loginModal.style.display = 'none';
+                }
+            });
+            
+            // Procesar login
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                const userType = document.getElementById('userType').value;
+                
+                // Simulación de login
+                if (email && password) {
+                    if (userType === 'admin' && email === 'admin@globaljobfinders.com') {
+                        // Login como admin
+                        currentUser = { name: "Administrador", email: email, type: "admin" };
+                        isAdminLoggedIn = true;
+                        adminNameSpan.textContent = `Bienvenido, ${currentUser.name}`;
+                        
+                        // Mostrar dashboard y ocultar otras secciones
+                        dashboard.style.display = 'block';
+                        document.getElementById('candidateForm').style.display = 'none';
+                        document.querySelector('.features').style.display = 'none';
+                        document.querySelector('.hero').style.display = 'none';
+                        
+                        // Actualizar navegación
+                        navMenu.classList.remove('show');
+                        loginModal.style.display = 'none';
+                        
+                        alert("Ha iniciado sesión como administrador");
+                    } else {
+                        // Login como usuario normal
+                        currentUser = { name: email.split('@')[0], email: email, type: userType };
+                        isAdminLoggedIn = false;
+                        
+                        alert(`Bienvenido ${currentUser.name}. En una implementación completa, aquí vería su panel de ${userType === 'candidate' ? 'candidato' : 'empresa'}`);
+                        loginModal.style.display = 'none';
+                    }
+                } else {
+                    alert("Por favor complete todos los campos");
+                }
+            });
+            
+            // Procesar registro de candidato
+            candidateRegistrationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validar declaraciones legales
+                const legalRecord = document.getElementById('legalRecord').checked;
+                const pendingCases = document.getElementById('pendingCases').checked;
+                const legalRestrictions = document.getElementById('legalRestrictions').checked;
+                const consentVerification = document.getElementById('consentVerification').checked;
+                
+                if (!legalRecord || !pendingCases || !legalRestrictions || !consentVerification) {
+                    alert("Debe aceptar todas las declaraciones legales para registrarse");
+                    return;
+                }
+                
+                // Obtener datos del formulario
+                const fullName = document.getElementById('fullName').value;
+                const email = document.getElementById('email').value;
+                const country = document.getElementById('country').value;
+                const profession = document.getElementById('profession').value;
+                const experience = document.getElementById('experience').value;
+                const languages = document.getElementById('languages').value;
+                
+                // Crear nuevo candidato
+                const newCandidate = {
+                    id: candidates.length + 1,
+                    name: fullName,
+                    email: email,
+                    country: country,
+                    profession: profession,
+                    experience: parseInt(experience),
+                    status: "pending",
+                    languages: languages,
+                    legalVerified: false,
+                    registrationDate: new Date().toISOString().split('T')[0]
+                };
+                
+                // Agregar a la lista
+                candidates.push(newCandidate);
+                
+                // Actualizar la interfaz
+                updateCandidateStats();
+                renderCandidates();
+                
+                // Mostrar mensaje de éxito
+                alert(`Gracias ${fullName}. Su registro ha sido recibido. Su solicitud está en revisión. Le contactaremos en ${email} una vez completada la verificación.`);
+                
+                // Limpiar formulario
+                candidateRegistrationForm.reset();
+            });
+            
+            // Cerrar sesión
+            logoutBtn.addEventListener('click', function() {
+                currentUser = null;
+                isAdminLoggedIn = false;
+                
+                // Ocultar dashboard y mostrar otras secciones
+                dashboard.style.display = 'none';
+                document.getElementById('candidateForm').style.display = 'block';
+                document.querySelector('.features').style.display = 'block';
+                document.querySelector('.hero').style.display = 'block';
+                
+                alert("Ha cerrado sesión correctamente");
+            });
+            
+            // Configurar tabs del dashboard
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remover clase active de todos los tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Agregar clase active al tab seleccionado
+                    this.classList.add('active');
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                });
+            });
+            
+            // Botón de registro
+            registerBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('candidateForm').scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Smooth scroll para enlaces internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    
+                    if (href !== "#" && !href.includes("Modal")) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(href);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                            navMenu.classList.remove('show');
+                        }
+                    }
+                });
+            });
+        });
+        
+        // Funciones de la aplicación
+        function updateCandidateStats() {
+            const totalCandidates = candidates.length;
+            const approvedCandidates = candidates.filter(c => c.status === 'approved').length;
+            const pendingCandidates = candidates.filter(c => c.status === 'pending').length;
+            const rejectedCandidates = candidates.filter(c => c.status === 'rejected').length;
+            
+            document.getElementById('totalCandidates').textContent = totalCandidates;
+            document.getElementById('approvedCandidates').textContent = approvedCandidates;
+            document.getElementById('pendingCandidates').textContent = pendingCandidates;
+            document.getElementById('rejectedCandidates').textContent = rejectedCandidates;
+        }
+        
+        function renderCandidates() {
+            const candidatesList = document.getElementById('candidatesList');
+            candidatesList.innerHTML = '';
+            
+            candidates.forEach(candidate => {
+                let statusClass = '';
+                let statusText = '';
+                
+                switch(candidate.status) {
+                    case 'approved':
+                        statusClass = 'status-approved';
+                        statusText = 'Aprobado';
+                        break;
+                    case 'pending':
+                        statusClass = 'status-pending';
+                        statusText = 'Pendiente';
+                        break;
+                    case 'rejected':
+                        statusClass = 'status-rejected';
+                        statusText = 'Rechazado';
+                        break;
+                }
+                
+                const candidateCard = document.createElement('div');
+                candidateCard.className = 'candidate-card';
+                candidateCard.innerHTML = `
+                    <div class="candidate-header">
+                        <h3>${candidate.name}</h3>
+                        <p>${candidate.profession}</p>
+                    </div>
+                    <div class="candidate-body">
+                        <p><strong>País:</strong> ${candidate.country}</p>
+                        <p><strong>Experiencia:</strong> ${candidate.experience} años</p>
+                        <p><strong>Idiomas:</strong> ${candidate.languages}</p>
+                        <p><strong>Email:</strong> ${candidate.email}</p>
+                        <p><strong>Fecha de registro:</strong> ${candidate.registrationDate}</p>
+                        <p><strong>Verificación legal:</strong> ${candidate.legalVerified ? 'Completada' : 'Pendiente'}</p>
+                        <div style="margin-top: 1rem;">
+                            <span class="candidate-status ${statusClass}">${statusText}</span>
+                        </div>
+                        <div style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                            ${candidate.status === 'pending' ? '<button class="btn" onclick="approveCandidate(' + candidate.id + ')">Aprobar</button>' : ''}
+                            ${candidate.status === 'pending' ? '<button class="btn" style="background-color: var(--accent)" onclick="rejectCandidate(' + candidate.id + ')">Rechazar</button>' : ''}
+                            <button class="btn" onclick="viewCandidateDetails(' + candidate.id + ')">Ver Detalles</button>
+                        </div>
+                    </div>
+                `;
+                
+                candidatesList.appendChild(candidateCard);
+            });
+        }
+        
+        // Funciones para acciones del dashboard
+        window.approveCandidate = function(id) {
+            const candidate = candidates.find(c => c.id === id);
+            if (candidate) {
+                candidate.status = 'approved';
+                candidate.legalVerified = true;
+                updateCandidateStats();
+                renderCandidates();
+                alert(`Candidato ${candidate.name} ha sido aprobado`);
+            }
+        };
+        
+        window.rejectCandidate = function(id) {
+            const candidate = candidates.find(c => c.id === id);
+            if (candidate) {
+                candidate.status = 'rejected';
+                updateCandidateStats();
+                renderCandidates();
+                alert(`Candidato ${candidate.name} ha sido rechazado`);
+            }
+        };
+        
+        window.viewCandidateDetails = function(id) {
+            const candidate = candidates.find(c => c.id === id);
+            if (candidate) {
+                alert(`Detalles del candidato:\n\nNombre: ${candidate.name}\nEmail: ${candidate.email}\nPaís: ${candidate.country}\nProfesión: ${candidate.profession}\nExperiencia: ${candidate.experience} años\nIdiomas: ${candidate.languages}\nEstado: ${candidate.status}\nVerificación legal: ${candidate.legalVerified ? 'Completada' : 'Pendiente'}\nFecha de registro: ${candidate.registrationDate}`);
+            }
+        };
+    </script>
+</body>
+</html>
